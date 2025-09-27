@@ -1,0 +1,1 @@
+{'module': '地址模块', 'priority': 'P0', 'api_name': '获取地址列表', 'group': 'list', 'method': 'get', 'url': '/api/address/list', 'headers': {'Content-Type': 'application/json'}}

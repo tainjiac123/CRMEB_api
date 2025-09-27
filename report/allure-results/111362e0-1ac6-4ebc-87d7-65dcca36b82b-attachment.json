@@ -1,0 +1,1 @@
+{'case_name': '正常登录', 'json': {'account': '19122674903', 'password': '123123'}, 'validation': [{'http_code': 200}, {'eq': {'status': 200}}, {'eq': {'msg': '登录成功'}}], 'extract': {'token': '$.data.data.token'}, 'expect_success': True}

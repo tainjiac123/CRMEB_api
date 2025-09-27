@@ -1,0 +1,1 @@
+{'case_name': '获取地址列表成功', 'validation': [{'http_code': 200}, {'eq': {'status': 200}}, {'eq': {'msg': 'success'}}], 'extract': {'first_address_id': '$.data.data[0].id'}, 'expect_success': True}

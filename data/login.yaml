@@ -1,0 +1,51 @@
+- baseInfo:
+    module: 登录模块
+    priority: P0
+    api_name: 用户登录
+    group: login
+    url: /api/login
+    method: post
+    headers:
+       Content-Type: application/json
+  testCase:
+    - case_name: 正常登录
+      json:
+        account: "19122674903"
+        password: "123123"
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "登录成功"}
+      extract:
+        token: $.data.data.token
+      expect_success: true
+
+    - case_name: 错误账号
+      json:
+        account: "not_exist"
+        password: "123123"
+      validation:
+        - http_code: 200
+        - eq: {"status": 410025}
+        - eq: {"msg": "账号或密码错误"}
+      expect_success: false
+
+    - case_name: 错误密码
+      json:
+        account: "19122674903"
+        password: "wrong_pass"
+      validation:
+        - http_code: 200
+        - eq: {"status": 410025}
+        - eq: {"msg": "账号或密码错误"}
+      expect_success: false
+
+    - case_name: 空账号
+      json:
+        account: ""
+        password: "123123"
+      validation:
+        - http_code: 200
+        - eq: {"status": 400}
+        - eq: {"msg": "请输入账号和密码"}
+      expect_success: false

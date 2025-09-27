@@ -1,0 +1,1 @@
+{'module': '购物车模块', 'priority': 'P1', 'api_name': '获取购物车数量', 'group': 'count', 'url': '/api/cart/count', 'method': 'get', 'headers': {'Content-Type': 'application/json'}}

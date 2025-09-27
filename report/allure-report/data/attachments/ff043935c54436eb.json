@@ -1,0 +1,1 @@
+{'case_name': '确认订单成功', 'json': {'cartId': '${order_cart_id}', 'addressId': '${order_address_id}'}, 'validation': [{'http_code': 200}, {'eq': {'status': 200}}, {'not_empty': '${orderKey}'}], 'extract': {'orderKey': '$.data.data.orderKey'}}

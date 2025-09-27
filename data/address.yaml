@@ -1,0 +1,134 @@
+# 获取地址列表
+- baseInfo:
+    module: 地址模块
+    priority: P0
+    api_name: 获取地址列表
+    group: list
+    method: get
+    url: /api/address/list
+    headers:
+      Content-Type: application/json
+  testCase:
+    - case_name: 获取地址列表成功
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "success"}
+      extract:
+        first_address_id: $.data.data[0].id
+      expect_success: true
+
+# 新增地址（multipart/form-data）
+- baseInfo:
+    module: 地址模块
+    priority: P0
+    api_name: 新增地址
+    group: add
+    method: post
+    url: /api/address/edit
+    headers: {}
+  testCase:
+    - case_name: 新增地址成功
+      data:
+        address[province]: 陕西省
+        address[city]: 西安市
+        address[district]: 莲湖区
+        address[city_id]: 610100
+        detail: 阳光大奥_${timestamp}
+        is_default: 0
+        real_name: 张三
+        phone: 13800000000
+        id: 0
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "success"}
+        - db:
+            sql: "SELECT real_name, phone, is_default FROM eb_user_address WHERE id = ${new_address_id}"
+            expected:
+              real_name: 张三
+              phone: 13800000000
+              is_default: 0
+      extract:
+        new_address_id: $.data.data.id
+      expect_success: true
+
+# 修改地址（multipart/form-data）
+- baseInfo:
+    module: 地址模块
+    priority: P0
+    api_name: 修改地址
+    group: update
+    method: post
+    url: /api/address/edit
+    headers: {}
+  testCase:
+    - case_name: 修改地址成功
+      data:
+        address[province]: 陕西省
+        address[city]: 西安市
+        address[district]: 莲湖区
+        address[city_id]: 610100
+        detail: 阳光大奥修改_${timestamp}
+        is_default: 0
+        real_name: 张三-修改
+        phone: 13900000000
+        id: ${new_address_id}
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "success"}
+        - db:
+            sql: "SELECT real_name, phone FROM eb_user_address WHERE id = ${new_address_id}"
+            expected:
+              real_name: 张三-修改
+              phone: 13900000000
+      expect_success: true
+
+# 设置默认地址
+- baseInfo:
+    module: 地址模块
+    priority: P0
+    api_name: 设置默认地址
+    group: set_default
+    method: post
+    url: /api/address/default/set
+    headers:
+      Content-Type: application/json
+  testCase:
+    - case_name: 设置默认地址成功
+      json:
+        id: ${new_address_id}
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "success"}
+        - db:
+            sql: "SELECT is_default FROM eb_user_address WHERE id = ${new_address_id}"
+            expected:
+              is_default: 1
+      expect_success: true
+
+# 删除地址
+- baseInfo:
+    module: 地址模块
+    priority: P0
+    api_name: 删除地址
+    group: delete
+    method: post
+    url: /api/address/del
+    headers:
+      Content-Type: application/json
+  testCase:
+    - case_name: 删除地址成功
+      json:
+        id: ${new_address_id}
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "success"}
+        - db:
+            sql: "SELECT is_del FROM eb_user_address WHERE id = ${new_address_id}"
+            expected:
+              is_del: 1
+      expect_success: true

@@ -1,0 +1,110 @@
+# 确认订单
+- baseInfo:
+    module: 订单模块
+    priority: P0
+    api_name: 确认订单
+    group: confirm
+    method: post
+    url: /api/order/confirm
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer ${token}
+  testCase:
+    - case_name: 确认订单成功
+      json:
+        cartId: ${order_cart_id}
+        addressId: ${order_address_id}
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - not_empty: ${orderKey}
+      extract:
+        orderKey: $.data.data.orderKey
+
+# 创建订单
+- baseInfo:
+    module: 订单模块
+    priority: P0
+    api_name: 创建订单
+    group: create
+    method: post
+    url: /api/order/create/${orderKey}
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer ${token}
+  testCase:
+    - case_name: 创建订单成功
+      json:
+        addressId: ${order_address_id}
+        payType: yue
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - db:
+            sql: "SELECT status FROM eb_store_order WHERE order_id = '${orderId}'"
+            expected:
+              status: 0
+            wait: 1
+      extract:
+        orderId: $.data.data.result.orderId
+
+# 支付订单
+- baseInfo:
+    module: 订单模块
+    priority: P0
+    api_name: 模拟支付订单
+    group: pay
+    method: post
+    url: /api/order/pay
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer ${token}
+  testCase:
+    - case_name: 模拟支付订单成功
+      json:
+        uni: ${orderId}
+        paytype: offline
+        from: routine
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+
+# 订单详情
+- baseInfo:
+    module: 订单模块
+    priority: P0
+    api_name: 订单详情
+    group: detail
+    method: get
+    url: /api/order/detail/${orderId}
+    headers:
+      Authorization: Bearer ${token}
+  testCase:
+    - case_name: 获取订单详情成功
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - db:
+            sql: "SELECT COUNT(*) AS cnt FROM eb_store_order WHERE order_id = '${orderId}'"
+            expected:
+              cnt: 1
+            wait: 1
+
+# 取消订单
+- baseInfo:
+    module: 订单模块
+    priority: P0
+    api_name: 取消订单
+    group: cancel
+    method: post
+    url: /api/order/cancel
+    headers:
+      Content-Type: application/x-www-form-urlencoded
+      Authorization: Bearer ${token}
+  testCase:
+    - case_name: 取消订单成功
+      data:
+        id: ${orderId}
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}

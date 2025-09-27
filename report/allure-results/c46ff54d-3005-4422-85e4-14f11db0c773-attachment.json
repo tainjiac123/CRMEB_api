@@ -1,0 +1,1 @@
+{'module': '订单模块', 'priority': 'P0', 'api_name': '模拟支付订单', 'group': 'pay', 'method': 'post', 'url': '/api/order/pay', 'headers': {'Content-Type': 'application/json', 'Authorization': 'Bearer ${token}'}}

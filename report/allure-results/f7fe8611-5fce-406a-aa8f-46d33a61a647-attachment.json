@@ -1,0 +1,1 @@
+{'case_name': '删除地址成功', 'json': {'id': '${new_address_id}'}, 'validation': [{'http_code': 200}, {'eq': {'status': 200}}, {'eq': {'msg': 'success'}}, {'db': {'sql': 'SELECT is_del FROM eb_user_address WHERE id = ${new_address_id}', 'expected': {'is_del': 1}}}], 'expect_success': True}

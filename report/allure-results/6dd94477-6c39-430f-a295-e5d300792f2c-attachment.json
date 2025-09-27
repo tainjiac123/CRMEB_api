@@ -1,0 +1,1 @@
+{'case_name': '取消订单成功', 'data': {'id': '${orderId}'}, 'validation': [{'http_code': 200}, {'eq': {'status': 200}}]}

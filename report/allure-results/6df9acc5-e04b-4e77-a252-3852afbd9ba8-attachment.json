@@ -1,0 +1,1 @@
+{'module': '购物车模块', 'priority': 'P0', 'api_name': '删除购物车商品', 'group': 'delete', 'url': '/api/cart/del', 'method': 'post', 'headers': {'Content-Type': 'application/json'}}

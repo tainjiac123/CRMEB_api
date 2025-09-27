@@ -1,0 +1,14 @@
+INFO     unit_tools.http_client.request_util:request_util.py:78 [Request] POST /api/cart/add
+INFO     unit_tools.http_client.request_util:request_util.py:85 [Response] 状态码: 200 响应数据: {'http_status': 200, 'status': True, 'data': {'status': 200, 'msg': 'success', 'data': {'cartId': '47'}}}
+INFO     unit_tools.handel_data.extract_handler:extract_handler.py:62 规则表提取 cart_ids = 47
+INFO     unit_tools.handel_data.extract_handler:extract_handler.py:62 规则表提取 single_cart_id = 47
+INFO     unit_tools.handel_data.extract_handler:extract_handler.py:62 规则表提取 multi_cart_ids = 47
+INFO     unit_tools.handel_data.extract_handler:extract_handler.py:74 用例提取 multi_cart_ids = 47
+INFO     unit_tools.handel_data.extract_util:extract_util.py:62 已覆盖 cart_ids: ['45', '46', '47'] 到 C:\Users\25321\PycharmProjects\Crmeb_api\extract.yaml
+INFO     unit_tools.handel_data.extract_util:extract_util.py:62 已覆盖 single_cart_id: 47 到 C:\Users\25321\PycharmProjects\Crmeb_api\extract.yaml
+INFO     unit_tools.handel_data.extract_util:extract_util.py:62 已覆盖 multi_cart_ids: ['45', '46', '47'] 到 C:\Users\25321\PycharmProjects\Crmeb_api\extract.yaml
+INFO     unit_tools.assertions.assert_util:assert_util.py:127 [DB-ASSERT] actual_data 原始内容: {'product_id': 3, 'cart_num': 1} (类型: <class 'dict'>)
+INFO     unit_tools.assertions.assert_util:assert_util.py:132 [DB-ASSERT] 字段 product_id 实际值: 3 (类型: <class 'int'>)
+INFO     unit_tools.assertions.assert_util:assert_util.py:133 [DB-ASSERT] 字段 product_id 预期值: 3 (类型: <class 'int'>)
+INFO     unit_tools.assertions.assert_util:assert_util.py:132 [DB-ASSERT] 字段 cart_num 实际值: 1 (类型: <class 'int'>)
+INFO     unit_tools.assertions.assert_util:assert_util.py:133 [DB-ASSERT] 字段 cart_num 预期值: 1 (类型: <class 'int'>)

@@ -1,0 +1,16 @@
+multi_cart_ids:
+- '45'
+- '46'
+- '47'
+token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwd2QiOiJkNDFkOGNkOThmMDBiMjA0ZTk4MDA5OThlY2Y4NDI3ZSIsImlzcyI6IjEyNy4wLjAuMSIsImF1ZCI6IjEyNy4wLjAuMSIsImlhdCI6MTc1ODk2NzM4NCwibmJmIjoxNzU4OTY3Mzg0LCJleHAiOjE3NjE1NTkzODQsImp0aSI6eyJpZCI6MywidHlwZSI6ImFwaSJ9fQ.RqtrSSvg8rfUkJGqRyCDBd-ek5mFG646rBt3az_FQP4
+first_address_id: '151'
+new_address_id: '190'
+cart_ids:
+- '45'
+- '46'
+- '47'
+single_cart_id: '47'
+order_cart_id: 48
+order_address_id: 151
+orderKey: '703305030886752256'
+orderId: cp494932008858614428

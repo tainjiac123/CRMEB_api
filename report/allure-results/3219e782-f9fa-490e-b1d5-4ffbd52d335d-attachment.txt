@@ -1,0 +1,3 @@
+INFO     unit_tools.http_client.request_util:request_util.py:78 [Request] POST /api/order/cancel
+INFO     unit_tools.http_client.request_util:request_util.py:85 [Response] 状态码: 200 响应数据: {'http_status': 200, 'status': True, 'data': {'status': 200, 'msg': '取消成功', 'code': '100019'}}
+INFO     conftest:conftest.py:30 [全局清理] 测试执行完成

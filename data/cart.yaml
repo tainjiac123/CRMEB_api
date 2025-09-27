@@ -1,0 +1,168 @@
+# 添加商品到购物车（单个删除用例专用）
+- baseInfo:
+    module: 购物车模块
+    priority: P0
+    api_name: 添加商品到购物车_单个删除
+    group: add
+    url: /api/cart/add
+    method: post
+    headers:
+      Content-Type: application/json
+  testCase:
+    - case_name: 添加商品A成功
+      json:
+        productId: 1
+        cartNum: 1
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "success"}
+        - db:
+            sql: "SELECT product_id, cart_num FROM eb_store_cart WHERE id = ${single_cart_id}"
+            expected:
+              product_id: 1
+              cart_num: 1
+      extract:
+        single_cart_id: $.data.data.cartId
+      expect_success: true
+
+# 添加商品到购物车（多个删除用例专用）
+- baseInfo:
+    module: 购物车模块
+    priority: P0
+    api_name: 添加商品到购物车_多个删除
+    group: add
+    url: /api/cart/add
+    method: post
+    headers:
+      Content-Type: application/json
+  testCase:
+    - case_name: 添加商品B成功
+      json:
+        productId: 2
+        cartNum: 1
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "success"}
+        - db:
+            sql: "SELECT product_id, cart_num FROM eb_store_cart WHERE id IN (${multi_cart_ids})"
+            expected:
+              product_id: 2
+              cart_num: 1
+      extract:
+        multi_cart_ids: $.data.data.cartId
+      expect_success: true
+
+    - case_name: 添加商品C成功
+      json:
+        productId: 3
+        cartNum: 1
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "success"}
+        - db:
+            sql: "SELECT product_id, cart_num FROM eb_store_cart WHERE id IN (${multi_cart_ids})"
+            expected:
+              product_id: 3
+              cart_num: 1
+      extract:
+        multi_cart_ids: $.data.data.cartId
+      expect_success: true
+
+# 删除购物车商品（物理删除版断言）
+- baseInfo:
+    module: 购物车模块
+    priority: P0
+    api_name: 删除购物车商品
+    group: delete
+    url: /api/cart/del
+    method: post
+    headers:
+      Content-Type: application/json
+  testCase:
+    - case_name: 删除单个商品
+      json:
+        ids: ${single_cart_id}
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "删除成功"}
+        - db:
+            sql: "SELECT COUNT(*) AS cnt FROM eb_store_cart WHERE id IN (${single_cart_id})"
+            expected:
+              cnt: 0
+      expect_success: true
+
+    - case_name: 删除多个商品
+      json:
+        ids: ${multi_cart_ids}
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - eq: {"msg": "删除成功"}
+        - db:
+            sql: "SELECT COUNT(*) AS cnt FROM eb_store_cart WHERE id IN ${multi_cart_ids}"
+            expected:
+              cnt: 0
+      expect_success: true
+
+# 获取购物车数量
+- baseInfo:
+    module: 购物车模块
+    priority: P1
+    api_name: 获取购物车数量
+    group: count
+    url: /api/cart/count
+    method: get
+    headers:
+      Content-Type: application/json
+  testCase:
+    - case_name: 获取购物车数量
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - db:
+            sql: "SELECT COUNT(*) AS cnt FROM eb_store_cart WHERE is_del = 0"
+            expected:
+              cnt: 0
+      expect_success: true
+
+# 获取购物车列表
+- baseInfo:
+    module: 购物车模块
+    priority: P1
+    api_name: 获取购物车列表
+    group: list
+    url: /api/cart/list
+    method: get
+    headers:
+      Content-Type: application/json
+  testCase:
+    - case_name: 获取购物车列表（不传 status）
+      params:
+        page: 1
+        limit: 10
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - db:
+            sql: "SELECT COUNT(*) AS cnt FROM eb_store_cart"
+            expected:
+              cnt: 0
+      expect_success: true
+
+    - case_name: 获取购物车列表（status=1）
+      params:
+        status: 1
+        page: 1
+        limit: 10
+      validation:
+        - http_code: 200
+        - eq: {"status": 200}
+        - db:
+            sql: "SELECT COUNT(*) AS cnt FROM eb_store_cart WHERE status = 1"
+            expected:
+              cnt: 0
+      expect_success: true
