@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # 安装 PHP 环境（运行 CRMEB 后端）
+      # 1. PHP 环境
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -36,13 +36,13 @@ jobs:
           extensions: mbstring, pdo_mysql
           coverage: none
 
-      # 安装 Composer 依赖
+      # 2. Composer 依赖
       - name: Install Composer dependencies
         working-directory: crmeb_src
         run: composer install --no-interaction --prefer-dist --no-progress
 
-      # 准备 .env 文件
-      - name: Prepare env
+      # 3. 准备 .env
+      - name: Prepare .env
         working-directory: crmeb_src
         run: |
           cp .env.example .env || true
@@ -51,14 +51,21 @@ jobs:
           sed -i 's/DB_USERNAME=.*/DB_USERNAME=crmeb/' .env
           sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=123456/' .env
 
-      # 启动 PHP 内置服务器
+      # 4. 启动 PHP 内置服务器
       - name: Start PHP server
         working-directory: crmeb_src/public
         run: |
-          nohup php -S 0.0.0.0:8000 index.php > /dev/null 2>&1 &
-          sleep 10
+          nohup php -S 0.0.0.0:8000 index.php > php_server.log 2>&1 &
+      # 5. 等待 PHP 端口真正就绪
+      - name: Wait for PHP server
+        run: |
+          for i in {1..30}; do
+            curl -sf http://127.0.0.1:8000/api/index && break
+            echo "⏳ Waiting for PHP server..."
+            sleep 2
+          done
 
-      # 安装 Python 环境
+      # 6. Python 环境
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
@@ -68,11 +75,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 安装 MySQL 客户端
+      # 7. MySQL 客户端
       - name: Install MySQL client
-        run: sudo apt-get install -y mysql-client
+        run: sudo apt-get update && sudo apt-get install -y mysql-client
 
-      # 等待 MySQL 就绪（用 root 用户探测）
+      # 8. 等待 MySQL
       - name: Wait for MySQL
         run: |
           for i in {1..30}; do
@@ -81,19 +88,21 @@ jobs:
             sleep 2
           done
 
-      # 确保 crmeb 用户权限
+      # 9. 授权（不再 CREATE USER）
       - name: Ensure user privileges
         run: |
-          mysql -h 127.0.0.1 -P 3306 -uroot -p123456 -e "GRANT ALL PRIVILEGES ON crmeb.* TO 'crmeb'@'127.0.0.1' IDENTIFIED BY '123456'; FLUSH PRIVILEGES;"
+          mysql -h 127.0.0.1 -uroot -p123456 -e "
+            GRANT ALL PRIVILEGES ON crmeb.* TO 'crmeb'@'%';
+            FLUSH PRIVILEGES;"
 
-      # 初始化数据库
+      # 10. 初始化数据
       - name: Init database
         run: mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 crmeb < init.sql
 
-      # 运行 pytest
+      # 11. 运行 pytest
       - name: Run pytest
         env:
-          BASE_URL: "http://127.0.0.1:8000"
+          BASE_URL: "http://127.0.0.1:8000"   # ✅ 去掉末尾空格
           MYSQL_HOST: "127.0.0.1"
           MYSQL_USER: "crmeb"
           MYSQL_PASSWORD: "123456"
