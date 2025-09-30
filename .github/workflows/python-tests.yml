@@ -28,17 +28,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # 安装 PHP 环境
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.0'
-          extensions: mbstring, pdo_mysql, bcmath, gd, curl, intl
-          coverage: none
-
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --prefer-dist
-
       # 安装 Python 环境
       - uses: actions/setup-python@v4
         with:
@@ -66,20 +55,12 @@ jobs:
       - name: Init database
         run: mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 crmeb < init.sql
 
-      # 启动 PHP 内置 Web 服务（CRMEB API）
-      - name: Start PHP server
-        run: |
-          nohup php -S 127.0.0.1:8000 -t public/ > server.log 2>&1 &
-          sleep 10
-
-      # 调试：确认 API 是否可访问
-      - name: Debug - Test API
-        run: curl -v http://127.0.0.1:8000/api/login || true
-
       # 运行 pytest
       - name: Run pytest
         env:
-          BASE_URL: "http://127.0.0.1:8000"
+          # 这里的 BASE_URL 指向你已经部署好的 CRMEB API 服务
+          # 如果你有公网测试环境，改成对应地址，例如 https://test.example.com
+          BASE_URL: "http://127.0.0.1/api"
           MYSQL_HOST: "127.0.0.1"
           MYSQL_USER: "crmeb"
           MYSQL_PASSWORD: "123456"
