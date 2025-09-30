@@ -1,4 +1,4 @@
-name: Python API Tests
+name: Python API Tests (Debug)
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: 123456
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: crmeb
           MYSQL_USER: crmeb
           MYSQL_PASSWORD: "123456"
@@ -37,20 +37,27 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 等待 MySQL 就绪
+      - name: Install MySQL client
+        run: sudo apt-get install -y mysql-client
+
       - name: Wait for MySQL
         run: |
-          for i in {1..10}; do
+          for i in {1..15}; do
             mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 -e "SELECT 1;" crmeb && break
             echo "MySQL not ready yet..."
             sleep 5
           done
 
-      # 初始化数据库（导入你本地导出的 init.sql）
       - name: Init database
-        run: |
-          sudo apt-get install -y mysql-client
-          mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 crmeb < init.sql
+        run: mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 crmeb < init.sql
+
+      # 🔍 调试步骤：打印数据库列表
+      - name: Debug - Show databases
+        run: mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 -e "SHOW DATABASES;"
+
+      # 🔍 调试步骤：打印 crmeb 库里的表
+      - name: Debug - Show tables
+        run: mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 -e "SHOW TABLES;" crmeb
 
       - name: Run pytest
         run: pytest testcase/ --maxfail=1 --disable-warnings -q
