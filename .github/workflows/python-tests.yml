@@ -20,10 +20,10 @@ jobs:
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -p123456"
+          --health-cmd="mysqladmin ping -h localhost -uroot -p123456"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=5
+          --health-retries=10
 
     steps:
       - uses: actions/checkout@v3
@@ -72,19 +72,19 @@ jobs:
       - name: Install MySQL client
         run: sudo apt-get install -y mysql-client
 
-      # 等待 MySQL 就绪
+      # 等待 MySQL 就绪（用 root 用户探测）
       - name: Wait for MySQL
         run: |
-          for i in {1..15}; do
-            mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 -e "SELECT 1;" crmeb && break
-            echo "MySQL not ready yet..."
-            sleep 5
+          for i in {1..30}; do
+            mysql -h 127.0.0.1 -P 3306 -uroot -p123456 -e "SELECT 1" && break
+            echo "⏳ Waiting for MySQL..."
+            sleep 2
           done
 
-      # 确保用户权限
+      # 确保 crmeb 用户权限
       - name: Ensure user privileges
         run: |
-          mysql -h 127.0.0.1 -P 3306 -uroot -p123456 -e "GRANT ALL PRIVILEGES ON crmeb.* TO 'crmeb'@'%' IDENTIFIED BY '123456'; FLUSH PRIVILEGES;"
+          mysql -h 127.0.0.1 -P 3306 -uroot -p123456 -e "GRANT ALL PRIVILEGES ON crmeb.* TO 'crmeb'@'127.0.0.1' IDENTIFIED BY '123456'; FLUSH PRIVILEGES;"
 
       # 初始化数据库
       - name: Init database
