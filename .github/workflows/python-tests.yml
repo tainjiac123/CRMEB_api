@@ -23,7 +23,7 @@ jobs:
           --health-cmd="mysqladmin ping -h localhost -uroot -proot"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=3
+          --health-retries=5
 
     steps:
       - uses: actions/checkout@v3
@@ -37,7 +37,20 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      # 等待 MySQL 就绪
+      - name: Wait for MySQL
+        run: |
+          for i in {1..10}; do
+            mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 -e "SELECT 1;" crmeb && break
+            echo "MySQL not ready yet..."
+            sleep 5
+          done
 
+      # 如果有初始化 SQL 脚本，可以在这里执行
+      # - name: Init database
+      #   run: |
+      #     sudo apt-get install -y mysql-client
+      #     mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 crmeb < init.sql
 
       - name: Run pytest
         run: pytest testcase/ --maxfail=1 --disable-warnings -q
