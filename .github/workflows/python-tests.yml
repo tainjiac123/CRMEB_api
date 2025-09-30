@@ -1,4 +1,4 @@
-name: Python API Tests (Debug)
+name: Python API Tests
 
 on:
   push:
@@ -28,18 +28,32 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # 安装 PHP 环境
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: mbstring, pdo_mysql, bcmath, gd, curl, intl
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      # 安装 Python 环境
       - uses: actions/setup-python@v4
         with:
           python-version: '3.13'
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      # 安装 MySQL 客户端
       - name: Install MySQL client
         run: sudo apt-get install -y mysql-client
 
+      # 等待 MySQL 就绪
       - name: Wait for MySQL
         run: |
           for i in {1..15}; do
@@ -48,16 +62,27 @@ jobs:
             sleep 5
           done
 
+      # 初始化数据库
       - name: Init database
         run: mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 crmeb < init.sql
 
-      # 🔍 调试步骤：打印数据库列表
-      - name: Debug - Show databases
-        run: mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 -e "SHOW DATABASES;"
+      # 启动 PHP 内置 Web 服务（CRMEB API）
+      - name: Start PHP server
+        run: |
+          nohup php -S 127.0.0.1:8000 -t public/ > server.log 2>&1 &
+          sleep 10
 
-      # 🔍 调试步骤：打印 crmeb 库里的表
-      - name: Debug - Show tables
-        run: mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 -e "SHOW TABLES;" crmeb
+      # 调试：确认 API 是否可访问
+      - name: Debug - Test API
+        run: curl -v http://127.0.0.1:8000/api/login || true
 
+      # 运行 pytest
       - name: Run pytest
+        env:
+          BASE_URL: "http://127.0.0.1:8000"
+          MYSQL_HOST: "127.0.0.1"
+          MYSQL_USER: "crmeb"
+          MYSQL_PASSWORD: "123456"
+          MYSQL_DB: "crmeb"
+          MYSQL_PORT: "3306"
         run: pytest testcase/ --maxfail=1 --disable-warnings -q
