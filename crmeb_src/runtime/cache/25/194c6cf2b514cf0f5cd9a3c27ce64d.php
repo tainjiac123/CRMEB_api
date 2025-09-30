@@ -1,0 +1,4 @@
+<?php
+//000002592060
+ exit();?>
+a:4:{s:3:"uid";i:1;s:4:"type";s:5:"admin";s:5:"token";s:293:"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwd2QiOiJiOWJmOGQ0OTU4NzZiNmFlYjI2OTUzYjU4ZjY4ZWFlYSIsImlzcyI6IjEyNy4wLjAuMSIsImF1ZCI6IjEyNy4wLjAuMSIsImlhdCI6MTc1NzMyMTg1NCwibmJmIjoxNzU3MzIxODU0LCJleHAiOjE3NTk5MTM4NTQsImp0aSI6eyJpZCI6MSwidHlwZSI6ImFkbWluIn19.gcMBDJBrBizH5EZo5tzUcO9czSe35i3R1gq4_D7jfoo";s:3:"exp";i:2592060;}

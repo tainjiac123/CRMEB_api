@@ -31,7 +31,7 @@ class ConfigParser:
             with open(self.config_file, 'r', encoding='utf-8') as file:
                 return yaml.safe_load(file) or {}
         except FileNotFoundError:
-            raise FileNotFoundError(f"配置文件 {self.config_file} 未找到！")
+            return {}  # CI 环境可能没有配置文件，返回空字典
         except yaml.YAMLError as e:
             raise ValueError(f"YAML 文件解析出错: {e}")
 
@@ -41,7 +41,7 @@ class ConfigParser:
             with open(self.config_file, 'r', encoding='utf-8') as file:
                 return json.load(file)
         except FileNotFoundError:
-            raise FileNotFoundError(f"配置文件 {self.config_file} 未找到！")
+            return {}
         except json.JSONDecodeError as e:
             raise ValueError(f"JSON 文件解析出错: {e}")
 
@@ -93,32 +93,29 @@ class ConfigParser:
         """重新加载配置文件"""
         self.config_data = self.load_config()
 
+    # ---------------- 恢复之前的读取策略 ----------------
+    def get_base_url(self):
+        """
+        获取 API 基础地址（仅从配置文件读取，不再优先使用环境变量）
+        """
+        return self.get("base_url", "http://127.0.0.1")
+
     def get_mysql_conf(self):
         """
-        获取 MySQL 数据库配置，并映射成常用连接参数格式
+        获取 MySQL 数据库配置（仅从配置文件读取，不再优先使用环境变量）
         """
         mysql_conf = self.config_data.get("mysql", {})
         return {
-            "host": mysql_conf.get("host"),
-            "username": mysql_conf.get("username"),  # 注意映射
-            "password": mysql_conf.get("password"),
-            "database": mysql_conf.get("database"),
-            "port": mysql_conf.get("port", 3306)
+            "host": mysql_conf.get("host", "127.0.0.1"),
+            "username": mysql_conf.get("username", "crmeb"),
+            "password": mysql_conf.get("password", "123456"),
+            "database": mysql_conf.get("database", "crmeb"),
+            "port": int(mysql_conf.get("port", 3306)),
         }
+
 
 # 运行示例
 if __name__ == "__main__":
     config_parser = ConfigParser()
-    print("Base URL:", config_parser.get("base_url"))
+    print("Base URL:", config_parser.get_base_url())
     print("MySQL 配置:", config_parser.get_mysql_conf())
-
-    print(f"Base URL: {config_parser.get('base_url')}")
-    print(f"MySQL Host: {config_parser.get('mysql.host')}")
-    print(f"MySQL Config: {config_parser.get('mysql')}")
-
-    # 修改配置
-    config_parser.set("mysql.password", "newpass123")
-    print("修改后的 MySQL 配置：", config_parser.get("mysql"))
-
-    # 判断配置项是否存在
-    print("是否存在 mysql.port:", config_parser.exists("mysql.port"))

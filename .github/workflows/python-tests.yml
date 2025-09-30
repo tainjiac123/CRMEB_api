@@ -11,7 +11,7 @@ jobs:
 
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: 123456
           MYSQL_DATABASE: crmeb
@@ -20,7 +20,7 @@ jobs:
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h localhost -uroot -proot"
+          --health-cmd="mysqladmin ping -h localhost -p123456"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -28,10 +28,41 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # 安装 PHP 环境（运行 CRMEB 后端）
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring, pdo_mysql
+          coverage: none
+
+      # 安装 Composer 依赖
+      - name: Install Composer dependencies
+        working-directory: crmeb_src
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      # 准备 .env 文件（用示例替代，避免提交敏感信息）
+      - name: Prepare env
+        working-directory: crmeb_src
+        run: |
+          cp .env.example .env || true
+          # 如果需要，可以在这里用 sed 修改数据库配置
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=crmeb/' .env
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=crmeb/' .env
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=123456/' .env
+
+      # 启动 PHP 内置服务器
+      - name: Start PHP server
+        working-directory: crmeb_src/public
+        run: |
+          nohup php -S 0.0.0.0:8000 index.php > /dev/null 2>&1 &
+          sleep 10
+
       # 安装 Python 环境
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.13'
+          python-version: '3.10'
 
       - name: Install Python dependencies
         run: |
@@ -58,9 +89,7 @@ jobs:
       # 运行 pytest
       - name: Run pytest
         env:
-          # 这里的 BASE_URL 指向你已经部署好的 CRMEB API 服务
-          # 如果你有公网测试环境，改成对应地址，例如 https://test.example.com
-          BASE_URL: "http://127.0.0.1/api"
+          BASE_URL: "http://127.0.0.1:8000"
           MYSQL_HOST: "127.0.0.1"
           MYSQL_USER: "crmeb"
           MYSQL_PASSWORD: "123456"

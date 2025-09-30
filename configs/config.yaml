@@ -1,7 +1,7 @@
 base_url: http://127.0.0.1
 mysql:
   database: crmeb
-  host: localhost
+  host: 127.0.0.1
   password: "123456"
   port: 3306
   username: crmeb

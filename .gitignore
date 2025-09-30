@@ -39,3 +39,21 @@ allure-report/
 # =========================
 .DS_Store
 Thumbs.db
+
+# =========================
+# PHP / Composer 项目
+# =========================
+vendor/          # Composer 依赖目录（CI/CD 时 composer install）
+runtime/         # 运行时缓存、日志
+backup/          # 数据库/配置备份
+*.log            # 日志文件
+*.cache          # 缓存文件
+*.lock           # 临时锁文件（composer.lock 除外）
+
+# =========================
+# 环境配置
+# =========================
+.env             # 本地环境配置（提交 .env.example 代替）
+.env.local
+.env.*.local
+
