@@ -20,7 +20,7 @@ jobs:
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h localhost -uroot -p123456"
+          --health-cmd="mysqladmin ping -hlocalhost -uroot -p123456"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=10
@@ -56,6 +56,7 @@ jobs:
         working-directory: crmeb_src/public
         run: |
           nohup php -S 0.0.0.0:8000 index.php > php_server.log 2>&1 &
+
       # 5. 等待 PHP 端口真正就绪
       - name: Wait for PHP server
         run: |
@@ -83,29 +84,29 @@ jobs:
       - name: Wait for MySQL
         run: |
           for i in {1..30}; do
-            mysql -h 127.0.0.1 -P 3306 -uroot -p123456 -e "SELECT 1" && break
+            mysql -h127.0.0.1 -P3306 -uroot -p123456 -e "SELECT 1" && break
             echo "⏳ Waiting for MySQL..."
             sleep 2
           done
 
-      # 9. 授权（不再 CREATE USER）
+      # 9. 授权
       - name: Ensure user privileges
         run: |
-          mysql -h 127.0.0.1 -uroot -p123456 -e "
+          mysql -h127.0.0.1 -uroot -p123456 -e "
             GRANT ALL PRIVILEGES ON crmeb.* TO 'crmeb'@'%';
             FLUSH PRIVILEGES;"
 
       # 10. 初始化数据
       - name: Init database
-        run: mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 crmeb < init.sql
+        run: mysql -h127.0.0.1 -P3306 -ucrmeb -p123456 crmeb < init.sql
 
-      # 11. 运行 pytest
+      # 11. 运行 pytest（环境变量已注入，代码无需改）
       - name: Run pytest
         env:
-          BASE_URL: "http://127.0.0.1:8000"   # ✅ 去掉末尾空格
+          BASE_URL: "http://127.0.0.1:8000"   # ✅ 末尾无空格
           MYSQL_HOST: "127.0.0.1"
+          MYSQL_PORT: "3306"
           MYSQL_USER: "crmeb"
           MYSQL_PASSWORD: "123456"
           MYSQL_DB: "crmeb"
-          MYSQL_PORT: "3306"
         run: pytest testcase/ --maxfail=1 --disable-warnings -q
