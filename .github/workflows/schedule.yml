@@ -21,7 +21,7 @@ jobs:
           pip install allure-pytest
 
       - name: Run pytest with Allure
-        run: pytest tests/ --alluredir=allure-results
+        run: pytest testcase/ --alluredir=allure-results
 
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@v1.7
