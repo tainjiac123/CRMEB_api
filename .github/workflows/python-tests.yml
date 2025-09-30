@@ -20,7 +20,7 @@ jobs:
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h localhost -p123456"
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -p123456"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -41,12 +41,11 @@ jobs:
         working-directory: crmeb_src
         run: composer install --no-interaction --prefer-dist --no-progress
 
-      # 准备 .env 文件（用示例替代，避免提交敏感信息）
+      # 准备 .env 文件
       - name: Prepare env
         working-directory: crmeb_src
         run: |
           cp .env.example .env || true
-          # 如果需要，可以在这里用 sed 修改数据库配置
           sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
           sed -i 's/DB_DATABASE=.*/DB_DATABASE=crmeb/' .env
           sed -i 's/DB_USERNAME=.*/DB_USERNAME=crmeb/' .env
@@ -66,7 +65,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       # 安装 MySQL 客户端
@@ -81,6 +80,11 @@ jobs:
             echo "MySQL not ready yet..."
             sleep 5
           done
+
+      # 确保用户权限
+      - name: Ensure user privileges
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -uroot -p123456 -e "GRANT ALL PRIVILEGES ON crmeb.* TO 'crmeb'@'%' IDENTIFIED BY '123456'; FLUSH PRIVILEGES;"
 
       # 初始化数据库
       - name: Init database
