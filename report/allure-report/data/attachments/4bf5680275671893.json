@@ -1,1 +1,0 @@
-{'module': '地址模块', 'priority': 'P0', 'api_name': '设置默认地址', 'group': 'set_default', 'method': 'post', 'url': '/api/address/default/set', 'headers': {'Content-Type': 'application/json'}}

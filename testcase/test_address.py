@@ -12,7 +12,7 @@ grouped_cases = group_cases(all_cases)
 @pytest.mark.usefixtures("init_test_class")
 class TestAddress(TestRunnerMixin):
 
-    @pytest.mark.order(1)
+    @pytest.mark.order(2)
     @pytest.mark.parametrize(
         "base_info,testcase",
         grouped_cases.get("list", []),
@@ -22,7 +22,7 @@ class TestAddress(TestRunnerMixin):
         """获取地址列表"""
         self.run_test(base_info, testcase)
 
-    @pytest.mark.order(2)
+    @pytest.mark.order(1)
     @pytest.mark.parametrize(
         "base_info,testcase",
         grouped_cases.get("add", []),

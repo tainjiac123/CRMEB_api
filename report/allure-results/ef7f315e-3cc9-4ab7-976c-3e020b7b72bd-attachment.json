@@ -1,1 +1,0 @@
-{'case_name': '获取购物车列表（status=1）', 'params': {'status': 1, 'page': 1, 'limit': 10}, 'validation': [{'http_code': 200}, {'eq': {'status': 200}}, {'db': {'sql': 'SELECT COUNT(*) AS cnt FROM eb_store_cart WHERE status = 1', 'expected': {'cnt': 0}}}], 'expect_success': True}

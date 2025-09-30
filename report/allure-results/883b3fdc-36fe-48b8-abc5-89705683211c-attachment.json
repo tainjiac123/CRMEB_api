@@ -1,1 +1,0 @@
-{'case_name': '错误密码', 'json': {'account': '19122674903', 'password': 'wrong_pass'}, 'validation': [{'http_code': 200}, {'eq': {'status': 410025}}, {'eq': {'msg': '账号或密码错误'}}], 'expect_success': False}

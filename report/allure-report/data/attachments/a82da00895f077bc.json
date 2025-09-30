@@ -1,1 +1,0 @@
-{'module': '地址模块', 'priority': 'P0', 'api_name': '新增地址', 'group': 'add', 'method': 'post', 'url': '/api/address/edit', 'headers': {}}

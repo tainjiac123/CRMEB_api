@@ -1,1 +1,0 @@
-{'module': '地址模块', 'priority': 'P0', 'api_name': '删除地址', 'group': 'delete', 'method': 'post', 'url': '/api/address/del', 'headers': {'Content-Type': 'application/json'}}

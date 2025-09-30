@@ -1,5 +1,0 @@
-INFO     unit_tools.http_client.request_util:request_util.py:78 [Request] POST /api/address/del
-INFO     unit_tools.http_client.request_util:request_util.py:85 [Response] 状态码: 200 响应数据: {'http_status': 200, 'status': True, 'data': {'status': 200, 'msg': '删除成功', 'code': '100002'}}
-INFO     unit_tools.assertions.assert_util:assert_util.py:127 [DB-ASSERT] actual_data 原始内容: {'is_del': 1} (类型: <class 'dict'>)
-INFO     unit_tools.assertions.assert_util:assert_util.py:132 [DB-ASSERT] 字段 is_del 实际值: 1 (类型: <class 'int'>)
-INFO     unit_tools.assertions.assert_util:assert_util.py:133 [DB-ASSERT] 字段 is_del 预期值: 1 (类型: <class 'int'>)

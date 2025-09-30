@@ -1,1 +1,0 @@
-{'case_name': '删除多个商品', 'json': {'ids': '${multi_cart_ids}'}, 'validation': [{'http_code': 200}, {'eq': {'status': 200}}, {'eq': {'msg': '删除成功'}}, {'db': {'sql': 'SELECT COUNT(*) AS cnt FROM eb_store_cart WHERE id IN ${multi_cart_ids}', 'expected': {'cnt': 0}}}], 'expect_success': True}

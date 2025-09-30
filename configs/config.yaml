@@ -4,4 +4,4 @@ mysql:
   host: localhost
   password: "123456"
   port: 3306
-  username: CREMB
+  username: crmeb

@@ -1,1 +1,0 @@
-{'case_name': '创建订单成功', 'json': {'addressId': '${order_address_id}', 'payType': 'yue'}, 'validation': [{'http_code': 200}, {'eq': {'status': 200}}, {'db': {'sql': "SELECT status FROM eb_store_order WHERE order_id = '${orderId}'", 'expected': {'status': 0}, 'wait': 1}}], 'extract': {'orderId': '$.data.data.result.orderId'}}

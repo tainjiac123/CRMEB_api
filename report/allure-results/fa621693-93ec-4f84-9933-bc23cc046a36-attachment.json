@@ -1,1 +1,0 @@
-{'module': '订单模块', 'priority': 'P0', 'api_name': '确认订单', 'group': 'confirm', 'method': 'post', 'url': '/api/order/confirm', 'headers': {'Content-Type': 'application/json', 'Authorization': 'Bearer ${token}'}}

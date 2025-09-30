@@ -1,1 +1,0 @@
-{'case_name': '设置默认地址成功', 'json': {'id': '${new_address_id}'}, 'validation': [{'http_code': 200}, {'eq': {'status': 200}}, {'eq': {'msg': 'success'}}, {'db': {'sql': 'SELECT is_default FROM eb_user_address WHERE id = ${new_address_id}', 'expected': {'is_default': 1}}}], 'expect_success': True}

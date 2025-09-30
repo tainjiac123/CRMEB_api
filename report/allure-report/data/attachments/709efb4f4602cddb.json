@@ -1,1 +1,0 @@
-{'http_status': 200, 'status': True, 'data': {'status': 200, 'msg': 'success', 'data': {'valid': [], 'invalid': [], 'deduction': {'seckill_id': 0, 'bargain_id': 0, 'combination_id': 0, 'discount_id': 0}}}}

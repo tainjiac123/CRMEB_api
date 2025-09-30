@@ -1,7 +1,0 @@
-INFO     unit_tools.http_client.request_util:request_util.py:78 [Request] POST /api/address/edit
-INFO     unit_tools.http_client.request_util:request_util.py:85 [Response] 状态码: 200 响应数据: {'http_status': 200, 'status': True, 'data': {'status': 200, 'msg': '修改成功', 'code': '100001'}}
-INFO     unit_tools.assertions.assert_util:assert_util.py:127 [DB-ASSERT] actual_data 原始内容: {'real_name': '张三-修改', 'phone': '13900000000'} (类型: <class 'dict'>)
-INFO     unit_tools.assertions.assert_util:assert_util.py:132 [DB-ASSERT] 字段 real_name 实际值: 张三-修改 (类型: <class 'str'>)
-INFO     unit_tools.assertions.assert_util:assert_util.py:133 [DB-ASSERT] 字段 real_name 预期值: 张三-修改 (类型: <class 'str'>)
-INFO     unit_tools.assertions.assert_util:assert_util.py:132 [DB-ASSERT] 字段 phone 实际值: 13900000000 (类型: <class 'str'>)
-INFO     unit_tools.assertions.assert_util:assert_util.py:133 [DB-ASSERT] 字段 phone 预期值: 13900000000 (类型: <class 'int'>)

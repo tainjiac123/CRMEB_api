@@ -1,1 +1,0 @@
-{'module': '购物车模块', 'priority': 'P0', 'api_name': '添加商品到购物车_多个删除', 'group': 'add', 'url': '/api/cart/add', 'method': 'post', 'headers': {'Content-Type': 'application/json'}}

@@ -1,5 +1,0 @@
-INFO     unit_tools.http_client.request_util:request_util.py:78 [Request] GET /api/cart/list
-INFO     unit_tools.http_client.request_util:request_util.py:85 [Response] 状态码: 200 响应数据: {'http_status': 200, 'status': True, 'data': {'status': 200, 'msg': 'success', 'data': {'valid': [], 'invalid': [], 'deduction': {'seckill_id': 0, 'bargain_id': 0, 'combination_id': 0, 'discount_id': 0}}}}
-INFO     unit_tools.assertions.assert_util:assert_util.py:127 [DB-ASSERT] actual_data 原始内容: {'cnt': 0} (类型: <class 'dict'>)
-INFO     unit_tools.assertions.assert_util:assert_util.py:132 [DB-ASSERT] 字段 cnt 实际值: 0 (类型: <class 'int'>)
-INFO     unit_tools.assertions.assert_util:assert_util.py:133 [DB-ASSERT] 字段 cnt 预期值: 0 (类型: <class 'int'>)

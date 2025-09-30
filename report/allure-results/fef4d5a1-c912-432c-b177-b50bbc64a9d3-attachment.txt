@@ -1,7 +1,0 @@
-INFO     unit_tools.http_client.request_util:request_util.py:78 [Request] POST /api/order/create/703305030886752256
-INFO     unit_tools.http_client.request_util:request_util.py:85 [Response] 状态码: 200 响应数据: {'http_status': 200, 'status': True, 'data': {'status': 200, 'msg': '订单创建成功', 'data': {'status': 'SUCCESS', 'result': {'orderId': 'cp494932008858614428', 'key': '703305030886752256'}}, 'code': '410203'}}
-INFO     unit_tools.handel_data.extract_handler:extract_handler.py:74 用例提取 orderId = cp494932008858614428
-INFO     unit_tools.handel_data.extract_util:extract_util.py:62 已覆盖 orderId: cp494932008858614428 到 C:\Users\25321\PycharmProjects\Crmeb_api\extract.yaml
-INFO     unit_tools.assertions.assert_util:assert_util.py:127 [DB-ASSERT] actual_data 原始内容: {'status': 0} (类型: <class 'dict'>)
-INFO     unit_tools.assertions.assert_util:assert_util.py:132 [DB-ASSERT] 字段 status 实际值: 0 (类型: <class 'int'>)
-INFO     unit_tools.assertions.assert_util:assert_util.py:133 [DB-ASSERT] 字段 status 预期值: 0 (类型: <class 'int'>)

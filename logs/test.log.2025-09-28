@@ -1,0 +1,114 @@
+[2025-09-28 11:19:30] [INFO] [__main__] [22856-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:19:30 ==============================
+
+[2025-09-28 11:19:30] [INFO] [__main__] [22856-MainThread] === 测试执行开始 ===
+[2025-09-28 11:19:31] [INFO] [unit_tools.handel_data.extract_util] [22856-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:19:31 ==============================
+
+[2025-09-28 11:19:31] [INFO] [unit_tools.handel_data.extract_handler] [22856-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:19:31 ==============================
+
+[2025-09-28 11:19:31] [INFO] [unit_tools.assertions.assert_util] [22856-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:19:31 ==============================
+
+[2025-09-28 11:19:31] [INFO] [unit_tools.http_client.request_util] [22856-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:19:31 ==============================
+
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:19:31 ==============================
+
+[2025-09-28 11:19:31] [INFO] [unit_tools.test_util.runner] [22856-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:19:31 ==============================
+
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 1. testcase/test_login.py::TestLogin::test_login[\u6b63\u5e38\u767b\u5f55]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 2. testcase/test_login.py::TestLogin::test_login[\u9519\u8bef\u8d26\u53f7]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 3. testcase/test_login.py::TestLogin::test_login[\u9519\u8bef\u5bc6\u7801]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 4. testcase/test_login.py::TestLogin::test_login[\u7a7a\u8d26\u53f7]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 5. testcase/test_address.py::TestAddress::test_list_address[\u83b7\u53d6\u5730\u5740\u5217\u8868\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 6. testcase/test_address.py::TestAddress::test_add_address[\u65b0\u589e\u5730\u5740\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 7. testcase/test_address.py::TestAddress::test_edit_address[\u4fee\u6539\u5730\u5740\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 8. testcase/test_address.py::TestAddress::test_set_default_address[\u8bbe\u7f6e\u9ed8\u8ba4\u5730\u5740\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 9. testcase/test_address.py::TestAddress::test_delete_address[\u5220\u9664\u5730\u5740\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 10. testcase/test_cart.py::TestCart::test_add_cart[\u6dfb\u52a0\u5546\u54c1A\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 11. testcase/test_cart.py::TestCart::test_add_cart[\u6dfb\u52a0\u5546\u54c1B\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 12. testcase/test_cart.py::TestCart::test_add_cart[\u6dfb\u52a0\u5546\u54c1C\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 13. testcase/test_cart.py::TestCart::test_delete_cart[\u5220\u9664\u5355\u4e2a\u5546\u54c1]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 14. testcase/test_cart.py::TestCart::test_delete_cart[\u5220\u9664\u591a\u4e2a\u5546\u54c1]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 15. testcase/test_cart.py::TestCart::test_get_cart_count[\u83b7\u53d6\u8d2d\u7269\u8f66\u6570\u91cf]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 16. testcase/test_cart.py::TestCart::test_get_cart_list[\u83b7\u53d6\u8d2d\u7269\u8f66\u5217\u8868\uff08\u4e0d\u4f20 status\uff09]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 17. testcase/test_cart.py::TestCart::test_get_cart_list[\u83b7\u53d6\u8d2d\u7269\u8f66\u5217\u8868\uff08status=1\uff09]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 18. testcase/test_order.py::TestOrder::test_confirm_order[\u786e\u8ba4\u8ba2\u5355\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 19. testcase/test_order.py::TestOrder::test_create_order[\u521b\u5efa\u8ba2\u5355\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 20. testcase/test_order.py::TestOrder::test_pay_order[\u6a21\u62df\u652f\u4ed8\u8ba2\u5355\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 21. testcase/test_order.py::TestOrder::test_order_detail[\u83b7\u53d6\u8ba2\u5355\u8be6\u60c5\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [排序结果] 22. testcase/test_order.py::TestOrder::test_cancel_order[\u53d6\u6d88\u8ba2\u5355\u6210\u529f]
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [执行顺序控制] 已按文件名排序执行用例
+[2025-09-28 11:19:31] [INFO] [conftest] [22856-MainThread] [全局清理] 会话开始前已清空提取文件: C:\Users\25321\PycharmProjects\Crmeb_api\extract.yaml
+[2025-09-28 11:19:32] [INFO] [conftest] [22856-MainThread] [全局清理] 测试执行完成
+[2025-09-28 11:19:32] [INFO] [__main__] [22856-MainThread] pytest 执行完成，退出码=1
+[2025-09-28 11:22:50] [INFO] [__main__] [22904-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:22:50 ==============================
+
+[2025-09-28 11:22:50] [INFO] [__main__] [22904-MainThread] === 测试执行开始 ===
+[2025-09-28 11:22:50] [INFO] [unit_tools.handel_data.extract_util] [22904-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:22:50 ==============================
+
+[2025-09-28 11:22:50] [INFO] [unit_tools.handel_data.extract_handler] [22904-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:22:50 ==============================
+
+[2025-09-28 11:22:50] [INFO] [unit_tools.assertions.assert_util] [22904-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:22:50 ==============================
+
+[2025-09-28 11:22:50] [INFO] [unit_tools.http_client.request_util] [22904-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:22:50 ==============================
+
+[2025-09-28 11:22:50] [INFO] [conftest] [22904-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:22:50 ==============================
+
+[2025-09-28 11:22:51] [INFO] [unit_tools.test_util.runner] [22904-MainThread] 
+
+============================== NEW RUN START 2025-09-28 11:22:51 ==============================
+
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 1. testcase/test_login.py::TestLogin::test_login[\u6b63\u5e38\u767b\u5f55]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 2. testcase/test_login.py::TestLogin::test_login[\u9519\u8bef\u8d26\u53f7]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 3. testcase/test_login.py::TestLogin::test_login[\u9519\u8bef\u5bc6\u7801]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 4. testcase/test_login.py::TestLogin::test_login[\u7a7a\u8d26\u53f7]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 5. testcase/test_address.py::TestAddress::test_list_address[\u83b7\u53d6\u5730\u5740\u5217\u8868\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 6. testcase/test_address.py::TestAddress::test_add_address[\u65b0\u589e\u5730\u5740\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 7. testcase/test_address.py::TestAddress::test_edit_address[\u4fee\u6539\u5730\u5740\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 8. testcase/test_address.py::TestAddress::test_set_default_address[\u8bbe\u7f6e\u9ed8\u8ba4\u5730\u5740\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 9. testcase/test_address.py::TestAddress::test_delete_address[\u5220\u9664\u5730\u5740\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 10. testcase/test_cart.py::TestCart::test_add_cart[\u6dfb\u52a0\u5546\u54c1A\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 11. testcase/test_cart.py::TestCart::test_add_cart[\u6dfb\u52a0\u5546\u54c1B\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 12. testcase/test_cart.py::TestCart::test_add_cart[\u6dfb\u52a0\u5546\u54c1C\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 13. testcase/test_cart.py::TestCart::test_delete_cart[\u5220\u9664\u5355\u4e2a\u5546\u54c1]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 14. testcase/test_cart.py::TestCart::test_delete_cart[\u5220\u9664\u591a\u4e2a\u5546\u54c1]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 15. testcase/test_cart.py::TestCart::test_get_cart_count[\u83b7\u53d6\u8d2d\u7269\u8f66\u6570\u91cf]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 16. testcase/test_cart.py::TestCart::test_get_cart_list[\u83b7\u53d6\u8d2d\u7269\u8f66\u5217\u8868\uff08\u4e0d\u4f20 status\uff09]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 17. testcase/test_cart.py::TestCart::test_get_cart_list[\u83b7\u53d6\u8d2d\u7269\u8f66\u5217\u8868\uff08status=1\uff09]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 18. testcase/test_order.py::TestOrder::test_confirm_order[\u786e\u8ba4\u8ba2\u5355\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 19. testcase/test_order.py::TestOrder::test_create_order[\u521b\u5efa\u8ba2\u5355\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 20. testcase/test_order.py::TestOrder::test_pay_order[\u6a21\u62df\u652f\u4ed8\u8ba2\u5355\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 21. testcase/test_order.py::TestOrder::test_order_detail[\u83b7\u53d6\u8ba2\u5355\u8be6\u60c5\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [排序结果] 22. testcase/test_order.py::TestOrder::test_cancel_order[\u53d6\u6d88\u8ba2\u5355\u6210\u529f]
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [执行顺序控制] 已按文件名排序执行用例
+[2025-09-28 11:22:51] [INFO] [conftest] [22904-MainThread] [全局清理] 会话开始前已清空提取文件: C:\Users\25321\PycharmProjects\Crmeb_api\extract.yaml
+[2025-09-28 11:22:52] [INFO] [conftest] [22904-MainThread] [全局清理] 测试执行完成
+[2025-09-28 11:22:52] [INFO] [__main__] [22904-MainThread] pytest 执行完成，退出码=1
+[2025-09-28 11:22:54] [INFO] [__main__] [22904-MainThread] Allure 报告已生成: C:\Users\25321\PycharmProjects\Crmeb_api\report\allure-report
+[2025-09-28 11:22:54] [INFO] [__main__] [22904-MainThread] Allure 报告标题已修改为: CRMEB接口测试报告
+[2025-09-28 11:22:54] [INFO] [__main__] [22904-MainThread] 正在打开 Allure 报告...
+[2025-09-28 11:22:54] [INFO] [__main__] [22904-MainThread] === 测试执行结束，总耗时 4.55 秒 ===

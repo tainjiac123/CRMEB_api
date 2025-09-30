@@ -19,7 +19,7 @@ CONFIG_FILE  = CONFIGS_DIR / "config.yaml"     # 全局配置文件
 EXTRACT_FILE = PROJECT_ROOT / "extract.yaml"   # 接口提取数据文件
 
 # ================== 工具配置 ==================
-ALLURE_CMD = r"D:\Tool\allure-2.34.1\bin\allure.bat"  # Allure CLI 路径
+ALLURE_CMD = r"D:\project_Tool\allure-2.35.1\bin\allure.bat"  # Allure CLI 路径
 
 # ================== 路径获取方法 ==================
 def get_project_root():

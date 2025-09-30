@@ -1,1 +1,0 @@
-{'case_name': '模拟支付订单成功', 'json': {'uni': '${orderId}', 'paytype': 'offline', 'from': 'routine'}, 'validation': [{'http_code': 200}, {'eq': {'status': 200}}]}

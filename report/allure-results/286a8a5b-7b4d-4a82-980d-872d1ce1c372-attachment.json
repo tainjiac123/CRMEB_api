@@ -1,1 +1,0 @@
-{'module': '订单模块', 'priority': 'P0', 'api_name': '订单详情', 'group': 'detail', 'method': 'get', 'url': '/api/order/detail/${orderId}', 'headers': {'Authorization': 'Bearer ${token}'}}
