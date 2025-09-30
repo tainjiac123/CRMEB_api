@@ -46,11 +46,11 @@ jobs:
             sleep 5
           done
 
-      # 如果有初始化 SQL 脚本，可以在这里执行
-      # - name: Init database
-      #   run: |
-      #     sudo apt-get install -y mysql-client
-      #     mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 crmeb < init.sql
+      # 初始化数据库（导入你本地导出的 init.sql）
+      - name: Init database
+        run: |
+          sudo apt-get install -y mysql-client
+          mysql -h 127.0.0.1 -P 3306 -ucrmeb -p123456 crmeb < init.sql
 
       - name: Run pytest
         run: pytest testcase/ --maxfail=1 --disable-warnings -q
