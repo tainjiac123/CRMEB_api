@@ -2,9 +2,15 @@
 import pytest
 import pymysql
 from unit_tools.handel_data.extract_util import ExtractUtil
-from unit_tools.handel_data.configParse import ConfigParser
+from unit_tools.handel_data.configParse import ConfigParser   # 你的配置类
 from api.cart_api import CartApi
 from api.address_api import AddressApi
+
+
+# 工具：拿到 CI/本地 都能用的 MySQL 配置
+def _mysql_conf():
+    return ConfigParser().get_mysql_conf()
+
 
 # ---------------- 购物车清理 ----------------
 @pytest.fixture(scope="session", autouse=True)
@@ -13,29 +19,22 @@ def clear_cart_once():
     测试会话开始时清空一次购物车（自动执行）
     建议在 WHERE 子句中限定测试账号 uid，避免误删。
     """
-    config = ConfigParser()
-    db_conf = config.get_mysql_conf()
-    db_user = db_conf.get("user") or db_conf.get("username")
-
-    # 可选：如果你能拿到测试账号 uid，替换为真实值
-    test_uid = db_conf.get("test_uid")  # 例如在 config 里配置 test_uid
-    where_clause = "WHERE uid = %s" if test_uid else ""  # 没有 uid 就清空全表（谨慎）
+    conf = _mysql_conf()
+    test_uid = conf.get("test_uid")          # 配置里可写死测试 uid
+    where_clause = "WHERE uid = %s" if test_uid else ""   # 无 uid 则清空全表（谨慎）
 
     conn = pymysql.connect(
-        host=db_conf["host"],
-        user=db_user,
-        password=db_conf["password"],
-        database=db_conf["database"],
-        port=int(db_conf.get("port", 3306)),
+        host=conf["host"],
+        user=conf["username"],              # 统一用 username
+        password=conf["password"],
+        database=conf["database"],
+        port=conf["port"],
         charset="utf8mb4"
     )
     try:
         with conn.cursor() as cursor:
             sql = f"DELETE FROM eb_store_cart {where_clause}"
-            if test_uid:
-                cursor.execute(sql, (test_uid,))
-            else:
-                cursor.execute(sql)
+            cursor.execute(sql, (test_uid,) if test_uid else ())
         conn.commit()
         print("[全局清理] 已清空购物车表")
     finally:
@@ -44,6 +43,8 @@ def clear_cart_once():
     # 重置可能用于多商品删除的缓存
     ExtractUtil().save("multi_cart_ids", [])
     print("[全局清理] 已重置 multi_cart_ids")
+
+
 # ---------------- 删除多个商品前置 ----------------
 @pytest.fixture(scope="function", autouse=True)
 def auto_prepare_multi_cart_ids(request):
@@ -68,6 +69,7 @@ def auto_prepare_multi_cart_ids(request):
 
         extract.save("multi_cart_ids", [cart_id_b, cart_id_c])
         print(f"[前置准备] 已自动添加商品B和C，multi_cart_ids={[cart_id_b, cart_id_c]}")
+
 
 # ---------------- 订单模块前置 ----------------
 @pytest.fixture(scope="class")

@@ -93,24 +93,26 @@ class ConfigParser:
         """重新加载配置文件"""
         self.config_data = self.load_config()
 
-    # ---------------- 恢复之前的读取策略 ----------------
+    # ---------------- 兼容 CI 的环境变量覆盖 ----------------
     def get_base_url(self):
         """
-        获取 API 基础地址（仅从配置文件读取，不再优先使用环境变量）
+        获取 API 基础地址
+        优先级：环境变量 > 配置文件
         """
-        return self.get("base_url", "http://127.0.0.1")
+        return os.getenv("BASE_URL", self.get("base_url", "http://127.0.0.1:8000"))
 
     def get_mysql_conf(self):
         """
-        获取 MySQL 数据库配置（仅从配置文件读取，不再优先使用环境变量）
+        获取 MySQL 数据库配置
+        优先级：环境变量 > 配置文件
         """
         mysql_conf = self.config_data.get("mysql", {})
         return {
-            "host": mysql_conf.get("host", "127.0.0.1"),
-            "username": mysql_conf.get("username", "crmeb"),
-            "password": mysql_conf.get("password", "123456"),
-            "database": mysql_conf.get("database", "crmeb"),
-            "port": int(mysql_conf.get("port", 3306)),
+            "host": os.getenv("MYSQL_HOST", mysql_conf.get("host", "127.0.0.1")),
+            "username": os.getenv("MYSQL_USER", mysql_conf.get("username", "root")),
+            "password": os.getenv("MYSQL_PASSWORD", mysql_conf.get("password", "")),
+            "database": os.getenv("MYSQL_DB", mysql_conf.get("database", "test")),
+            "port": int(os.getenv("MYSQL_PORT", mysql_conf.get("port", 3306))),
         }
 
 
